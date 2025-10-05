@@ -9,7 +9,7 @@ public class UpdateCapitalUi : MonoBehaviour
     [SerializeField] string current_value = "0";
     void Start()
     {
-        current_value = CapitalTXT.GetComponent<TextMeshPro>().text;
+        //current_value = CapitalTXT.GetComponent<TextMeshPro>().text;
     }
 
     // Update is called once per frame

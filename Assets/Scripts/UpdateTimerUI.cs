@@ -8,7 +8,7 @@ public class UpdateTimerUI : MonoBehaviour
     [SerializeField] string current_timer = "00:00"; 
     void Start()
     {
-        current_timer = TimerTXT.GetComponent<TextMeshPro>().text;
+        //current_timer = TimerTXT.GetComponent<TextMeshPro>().text;
     }
 
     // Update is called once per frame
