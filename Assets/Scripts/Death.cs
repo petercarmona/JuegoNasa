@@ -2,43 +2,48 @@ using UnityEngine;
 
 public class Death : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     [Header("Animal Life Settings / Configuración de Vida del Animal")]
-     // Max health points / Puntos de vida máximos
-    [SerializeField] private int maxAge = 5; // Maximum age before death / Edad máxima antes de morir
+    [Tooltip("Maximum age before death / Edad máxima antes de morir")]
+    [SerializeField] private int maxAge = 5;
 
-    private int currentAge = 0; // Current animal age / Edad actual del animal
-    private Animal animalReference; // Reference to the Animal script / Referencia al script del Animal
-    void Start()
+    [Tooltip("How many seconds per age increase / Cuántos segundos por incremento de edad")]
+    [SerializeField] private float ageInterval = 5f;
+
+    private int currentAge = 0;
+    private Animal animalReference;
+    private float ageTimer = 0f;
+
+    private void Start()
     {
-      // Get reference to the Animal component on this GameObject
-        // Obtiene la referencia al componente Animal en este GameObject
+        // Get the Animal component reference
         animalReference = GetComponent<Animal>();
 
-        // Subscribe to GameManager event
-        // Suscribirse al evento del GameManager
-        GameManager.OnTimeIntervalPassed += HandleTimeInterval;
+        if (animalReference == null)
+        {
+            Debug.LogWarning($"[WARNING] No 'Animal' component found on {gameObject.name}.");
+            return;
+        }
 
-        // Initialize animal life
-        // Inicializa la vida del animal
+        // Initialize this animal's life individually
         currentAge = 1;
-        Debug.Log($"[LIFE START] Animal: {animalReference.name} ({animalReference.GetType().Name}) ");
+        Debug.Log($"[LIFE START] {animalReference.name} (Type: {animalReference.GetType().Name}) born with max age {maxAge}.");
     }
-  
 
-   private void OnDestroy()
+    private void Update()
     {
-        // Unsubscribe from GameManager event to avoid memory leaks
-        // Desuscribirse del evento del GameManager para evitar fugas de memoria
-        GameManager.OnTimeIntervalPassed -= HandleTimeInterval;
+        // Count time individually for this animal
+        ageTimer += Time.deltaTime;
+
+        if (ageTimer >= ageInterval)
+        {
+            ageTimer = 0f; // reset timer
+            AgeUp();
+        }
     }
 
-    // Called every time the GameManager event triggers
-    // Se llama cada vez que se activa el evento del GameManager
-    private void HandleTimeInterval()
+    private void AgeUp()
     {
         currentAge++;
-
         Debug.Log($"[AGE UPDATE] {animalReference.name} is now {currentAge} years old.");
 
         if (currentAge >= maxAge)
@@ -47,14 +52,13 @@ public class Death : MonoBehaviour
         }
     }
 
-    // Handles the death of the animal
-    // Maneja la muerte del animal
     private void Die()
     {
-        Debug.Log($"💀 [DEATH EVENT] Animal: {animalReference.name} | Type: {animalReference.GetType().Name} | Race: {animalReference.GetType().Name} has died at age {currentAge}.");
-        
-        // Destroy the GameObject after a short delay to allow the message to show
-        // Destruye el GameObject después de un breve retraso para que se muestre el mensaje
-        Destroy(this.gameObject, 3.0f);
+        Debug.Log($"💀 [DEATH EVENT] Animal '{animalReference.name}' (Type: {animalReference.GetType().Name}) died at age {currentAge}.");
+
+        // Optional: Notify GameManager or Spawner that this slot is now free
+        // GameManager.Instance.FreeSlot(animalReference);
+
+        Destroy(gameObject, 2.0f);
     }
 }

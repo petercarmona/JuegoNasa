@@ -7,62 +7,90 @@ public class Spawn : MonoBehaviour
     [SerializeField] public GameObject animalPrefab;
 
     [Tooltip("Spawn point reference / Referencia al punto de aparición")]
-    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private Transform[] spawnPoint;
 
     [Tooltip("Enable to spawn multiple animals / Habilitar para generar múltiples animales")]
     [SerializeField] private bool allowMultipleSpawn = true;
 
     private GameObject currentAnimalInstance;
 
+    // 🔹 New array to track if a spawn point is occupied
+    private bool[] spawnPointUsed;
+
     private void Start()
     {
-        // If no spawnPoint is set, use this GameObject's transform
-        // Si no se define un spawnPoint, usa el transform del GameObject actual
-        if (spawnPoint == null)
+        if (spawnPoint == null || spawnPoint.Length == 0)
         {
-            spawnPoint = this.transform;
+            spawnPoint = new Transform[] { this.transform };
         }
 
-        Debug.Log($"Spawner initialized at position: {spawnPoint.position}");
+        // Initialize slot tracking
+        spawnPointUsed = new bool[spawnPoint.Length];
     }
 
     private void Update()
     {
-        // Detects space key press to trigger spawn
-        // Detecta si se presiona la tecla Espacio para generar un objeto
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SpawnObject();
+            SpawnAtRandomSpawnPoint();
         }
     }
 
-    // Function that creates an animal prefab at the spawn point position
-    // Función que crea un prefab de animal en la posición del punto de aparición
-    private void SpawnObject()
+    private void SpawnAtRandomSpawnPoint()
     {
-        // Prevent spawning multiple animals if not allowed
-        // Previene crear múltiples instancias si no está permitido
-        if (!allowMultipleSpawn && currentAnimalInstance != null)
-        {
-            Debug.LogWarning("An animal is already spawned! Enable 'Allow Multiple Spawn' if needed.");
-            return;
-        }
-
         if (animalPrefab == null)
         {
             Debug.LogError("No animal prefab assigned to the spawner!");
             return;
         }
 
-        // Get the position and rotation of the spawn point
-        // Obtiene la posición y rotación del punto de aparición
-        Vector3 spawnPosition = spawnPoint.position;
-        Quaternion spawnRotation = Quaternion.identity;
+        // 🔹 Find a free spawn slot
+        int freeIndex = GetFreeSpawnPoint();
+        if (freeIndex == -1)
+        {
+            Debug.LogWarning("No available spawn points — all are full!");
+            return;
+        }
 
-        // Instantiate the prefab at the position and rotation
-        // Instancia el prefab en la posición y rotación especificadas
-        currentAnimalInstance = Instantiate(animalPrefab, spawnPosition, spawnRotation);
+        Vector3 spawnPosition = spawnPoint[freeIndex].position;
+        Quaternion spawnRotation = spawnPoint[freeIndex].rotation;
 
-        Debug.Log($"[SPAWN] Created new animal '{animalPrefab.name}' at position {spawnPosition}");
+        // Instantiate the prefab
+        GameObject newAnimal = Instantiate(animalPrefab, spawnPosition, spawnRotation);
+
+        // Mark the slot as used
+        spawnPointUsed[freeIndex] = true;
+
+        // Optional: store reference if single spawn only
+        if (!allowMultipleSpawn)
+        {
+            currentAnimalInstance = newAnimal;
+        }
+
+        Debug.Log($"Spawned animal at slot {freeIndex}");
+    }
+
+    // 🔹 Finds an available spawn point (returns -1 if none)
+    private int GetFreeSpawnPoint()
+    {
+        for (int i = 0; i < spawnPointUsed.Length; i++)
+        {
+            if (!spawnPointUsed[i])
+                return i;
+        }
+        return -1;
+    }
+
+    // 🔹 Public method you can call when animal dies/sells
+    public void FreeSpawnSlot(int index)
+    {
+        if (index < 0 || index >= spawnPointUsed.Length)
+        {
+            Debug.LogError("Invalid spawn index!");
+            return;
+        }
+
+        spawnPointUsed[index] = false;
+        Debug.Log($"Slot {index} is now free.");
     }
 }
