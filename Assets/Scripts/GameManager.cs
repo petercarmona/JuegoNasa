@@ -19,6 +19,12 @@ public class GameManager : MonoBehaviour
     // Puntaje del jugador
     public int score = 0;
 
+    public int money = 10000;
+
+    public int cornQuantity = 0;
+    public int sheepQuantity = 0;
+    public int cowQuantity = 0;
+
     // Event to notify animals when time interval has passed
     // Evento que notifica a los animales cuando pasa cierto tiempo
     public static event Action OnTimeIntervalPassed;
@@ -61,5 +67,22 @@ public class GameManager : MonoBehaviour
     {
         score += points;
         Debug.Log($"Score increased! Current score: {score}");
+    }
+
+    public void SubtractMoney(int amount)
+    {
+        money -= amount;
+        if (money < 0)
+        {
+            money = 0;
+            Debug.Log("You don't have enough money");
+        }
+        Debug.Log($"New balance: {money}");
+    }
+
+    public void AddMoney(int amount)
+    {
+        money += amount;
+        Debug.Log($"New balance: {money}");
     }
 }
