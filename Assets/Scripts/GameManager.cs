@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour
 
     public static event Action OnTimeIntervalPassed;
 
+    [Header("Music Settings")]
+    [SerializeField] private AudioSource musicSource; // AudioSource reference
+    [SerializeField] private AudioClip backgroundMusic; // Your song clip
+    [SerializeField] private bool loopMusic = true;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

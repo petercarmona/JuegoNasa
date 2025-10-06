@@ -11154,6 +11154,9 @@ MonoBehaviour:
   cornQuantity: 0
   sheepQuantity: 0
   cowQuantity: 0
+  musicSource: {fileID: 0}
+  backgroundMusic: {fileID: 8300000, guid: 6ea9d3d415a62e44b98c134fc4214c1c, type: 3}
+  loopMusic: 1
 --- !u!4 &1983823092
 Transform:
   m_ObjectHideFlags: 0
