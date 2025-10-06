@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
-    [SerializeField] int sheepPrice = 100;
-    [SerializeField] int sheepSell = 100;
+    [SerializeField] int sheepPrice = 300;
+    [SerializeField] int sheepSell = 800;
 
-    [SerializeField] int cowPrice = 100;
-    [SerializeField] int cowSell = 100;
+    [SerializeField] int cowPrice = 1300;
+    [SerializeField] int cowSell = 2500;
     
     [SerializeField] int CornPrice = 100;
-    [SerializeField] int CornSell = 100;
+    [SerializeField] int CornSell = 150;
     
     public void BuyCorn()
     {

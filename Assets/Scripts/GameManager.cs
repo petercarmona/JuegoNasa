@@ -1,68 +1,67 @@
 using UnityEngine;
 using System;
+using TMPro;
 
-// GameManager class controls the overall game logic.
-// La clase GameManager controla la lógica general del juego.
+using TMPro;
+using UnityEngine;
+using System;
+
 public class GameManager : MonoBehaviour
 {
-    // Singleton instance (so there's only one GameManager in the scene)
-    // Instancia Singleton (para que solo exista un GameManager en la escena)
     public static GameManager Instance { get; private set; }
 
-    // Game time control variables
-    // Variables de control del tiempo del juego
-    public float elapsedTime; // tiempo total transcurrido
-    public float timeInterval = 10f; // intervalo para aumentar edad
+    public float elapsedTime;
+    public float timeInterval = 10f;
     private float timer;
 
-    // Player score
-    // Puntaje del jugador
     public int score = 0;
-
     public int money = 10000;
+
+    public GameObject MoneyUI;
+    private TextMeshProUGUI moneyText; // cached reference
 
     public int cornQuantity = 0;
     public int sheepQuantity = 0;
     public int cowQuantity = 0;
 
-    // Event to notify animals when time interval has passed
-    // Evento que notifica a los animales cuando pasa cierto tiempo
     public static event Action OnTimeIntervalPassed;
 
     private void Awake()
     {
-        // Singleton initialization
-        // Inicialización del Singleton
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject); // Keep between scenes / Mantener entre escenas
-        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        // Cache the TMP component once
+        if (MoneyUI != null)
+            moneyText = MoneyUI.GetComponent<TextMeshProUGUI>();
     }
 
     private void Update()
     {
-        // Update global game time
-        // Actualiza el tiempo global del juego
         elapsedTime += Time.deltaTime;
         timer += Time.deltaTime;
 
-        // If enough time has passed, trigger the event
-        // Si ha pasado suficiente tiempo, dispara el evento
         if (timer >= timeInterval)
         {
             timer = 0f;
             Debug.Log("Time interval reached! Increasing animal age...");
             OnTimeIntervalPassed?.Invoke();
         }
+
+        // Update UI only if component is found
+        if (moneyText != null)
+            moneyText.text = $"{money} $";
     }
 
-    // Function to increase the score
-    // Función para aumentar el puntaje
     public void AddScore(int points)
     {
         score += points;
@@ -72,11 +71,7 @@ public class GameManager : MonoBehaviour
     public void SubtractMoney(int amount)
     {
         money -= amount;
-        if (money < 0)
-        {
-            money = 0;
-            Debug.Log("You don't have enough money");
-        }
+        if (money < 0) money = 0;
         Debug.Log($"New balance: {money}");
     }
 

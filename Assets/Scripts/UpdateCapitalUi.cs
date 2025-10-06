@@ -17,4 +17,6 @@ public class UpdateCapitalUi : MonoBehaviour
     {
         
     }
+
+    // DEPRECATEDDDDDDDDDDDDDDDDDDDDDDD DUE TO TIME
 }

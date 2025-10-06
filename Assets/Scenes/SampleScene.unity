@@ -201,7 +201,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5194953}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 759135371}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: SellCow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5194953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5924,13 +5936,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 759135366}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 759135371}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: BuySheep
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6482,7 +6494,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 339826392}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 759135371}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: BuyCorn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &339826392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8936,7 +8960,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1052333326}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 759135371}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: SellCorn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1052333326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9978,7 +10014,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1556038056}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 759135371}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: BuyCow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1556038056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10694,7 +10742,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1865073011}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 759135371}
+        m_TargetAssemblyTypeName: Shop, Assembly-CSharp
+        m_MethodName: SellSheep
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1865073011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11067,7 +11127,6 @@ GameObject:
   - component: {fileID: 1983823092}
   - component: {fileID: 1983823091}
   - component: {fileID: 1983823094}
-  - component: {fileID: 1983823093}
   m_Layer: 0
   m_Name: _GameManager
   m_TagString: Untagged
@@ -11091,6 +11150,7 @@ MonoBehaviour:
   timeInterval: 10
   score: 0
   money: 10000
+  MoneyUI: {fileID: 656373398}
   cornQuantity: 0
   sheepQuantity: 0
   cowQuantity: 0
@@ -11109,20 +11169,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1983823093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1983823090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 092af0fc87260e841b4f8f25747d972e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UpdateTimerUI
-  TimerTXT: {fileID: 421263844}
-  current_timer: 00:00
 --- !u!114 &1983823094
 MonoBehaviour:
   m_ObjectHideFlags: 0
