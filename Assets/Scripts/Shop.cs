@@ -18,6 +18,7 @@ public class Shop : MonoBehaviour
         if (currentMoney >= CornPrice && GameManager.Instance.cornQuantity < 10)
         {
             GameManager.Instance.SubtractMoney(CornPrice);
+            GameManager.Instance.cornQuantity++;
         }
         else
         {
@@ -27,8 +28,10 @@ public class Shop : MonoBehaviour
 
     public void SellCorn()
     {
-        if (GameManager.Instance.cornQuantity > 0)
+        if (GameManager.Instance.cornQuantity > 0) {
             GameManager.Instance.AddMoney(CornSell);
+            GameManager.Instance.cornQuantity--;
+                }
 
 
     }public void BuySheep()
@@ -38,6 +41,7 @@ public class Shop : MonoBehaviour
         if (currentMoney >= sheepPrice && GameManager.Instance.sheepQuantity < 6)
         {
             GameManager.Instance.SubtractMoney(sheepPrice);
+            GameManager.Instance.sheepQuantity++;
         }
         else
         {
@@ -47,8 +51,11 @@ public class Shop : MonoBehaviour
 
     public void SellSheep()
     {
-        if (GameManager.Instance.sheepQuantity > 0)
-            GameManager.Instance.AddMoney(sheepSell);
+        if (GameManager.Instance.sheepQuantity > 0) 
+        { 
+        GameManager.Instance.AddMoney(sheepSell);
+        GameManager.Instance.sheepQuantity--;
+        }
 
 
     }public void BuyCow()
@@ -58,6 +65,7 @@ public class Shop : MonoBehaviour
         if (currentMoney >= cowPrice && GameManager.Instance.cowQuantity < 10)
         {
             GameManager.Instance.SubtractMoney(cowPrice);
+            GameManager.Instance.cowQuantity++;
         }
         else
         {
@@ -68,6 +76,9 @@ public class Shop : MonoBehaviour
     public void SellCow()
     {
         if (GameManager.Instance.cowQuantity > 0)
+        {
             GameManager.Instance.AddMoney(cowSell);
+            GameManager.Instance.cowQuantity--;
+        }
     }
 }

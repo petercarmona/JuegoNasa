@@ -8081,12 +8081,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f23b71d699d60a42a22a8b41b0f6577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shop
-  sheepPrice: 100
-  sheepSell: 100
-  cowPrice: 100
-  cowSell: 100
+  sheepPrice: 300
+  sheepSell: 600
+  cowPrice: 800
+  cowSell: 2500
   CornPrice: 100
-  CornSell: 100
+  CornSell: 150
 --- !u!1001 &761680846
 PrefabInstance:
   m_ObjectHideFlags: 0
